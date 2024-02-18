@@ -34,7 +34,7 @@ def process(dwprocessor, input_image, detect_resolution):
     return detected_map
 
 dwprocessor = DWposeDetector()
-dataset_folder = '../../UBC_dataset'
+dataset_folder = '/mnt/workspace/tongtong.stt/Video/Open-AnimateAnyone/UBC_dataset'
 sub_folders = ['train', 'test']
 detect_resolution = 768
 
@@ -48,5 +48,7 @@ for sub_folder in sub_folders:
     for video_name in tqdm(os.listdir(path), desc=f"Processing {sub_folder}"):
         video_path = os.path.join(path, video_name)
         output_video_path = os.path.join(output_folder, video_name.split('.')[0] + '.mp4')
-
+        if os.path.exists(output_video_path): 
+            # print("pass")
+            continue
         process_video(dwprocessor, video_path, output_video_path, detect_resolution)
